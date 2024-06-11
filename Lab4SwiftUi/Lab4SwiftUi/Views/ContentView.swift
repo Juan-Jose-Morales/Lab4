@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var viewModel = UserViewModel(userRepository: UserRepositoryImpl())
+    @State private var showingAddUserView = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView{
+            VStack{
+                List(viewModel.users) { user in
+                    Text(user.name)
+                }
+                .navigationTitle("Users")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showingAddUserView = true
+                        }) {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingAddUserView){
+                    AddUserView(viewModel: viewModel)
+                }
+            }
+            
+            
         }
-        .padding()
     }
 }
 
