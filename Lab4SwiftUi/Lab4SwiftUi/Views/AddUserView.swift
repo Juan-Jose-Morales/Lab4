@@ -20,18 +20,18 @@ struct AddUserView: View {
     
     var body: some View {
         NavigationView{
-                VStack{
-                    Form {
-                        TextField("Name", text: $name)
-                        TextField("Favorite Color", text: $favoriteColor)
-                        DatePicker("Birthdate", selection: $birthdate, displayedComponents: .date)
-                        TextField("Favorite City", text: $favoriteCity)
-                        TextField("Favorite Number", text: $favoriteNumber).keyboardType(.numberPad)
-                    }
-                    .padding(.vertical)
-                    .background(Color(UIColor.systemBackground))
+            VStack{
+                Form {
+                    TextField("Name", text: $name)
+                    TextField("Favorite Color", text: $favoriteColor)
+                    DatePicker("Birthdate", selection: $birthdate, displayedComponents: .date)
+                    TextField("Favorite City", text: $favoriteCity)
+                    TextField("Favorite Number", text: $favoriteNumber).keyboardType(.numberPad)
                 }
-                .navigationTitle("Add User")
+                .padding(.vertical)
+                .background(Color(UIColor.systemBackground))
+            }
+            .navigationTitle("Add User")
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
                     Button("Cancel") {
@@ -40,8 +40,7 @@ struct AddUserView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing)
                 {
-                    Button("Save"){
-                        
+                    Button("Save"){  
                         if let number = Int(favoriteNumber) {
                             let user = User(name: name, favoriteColor: favoriteColor, birthdate: birthdate, favoriteCity: favoriteCity, favoriteNumber: number)
                             viewModel.addUser(user)

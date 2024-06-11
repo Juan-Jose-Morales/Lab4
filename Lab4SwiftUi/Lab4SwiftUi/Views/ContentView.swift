@@ -14,28 +14,33 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
-                List(viewModel.users) { user in
-                    Text(user.name)
-                }
-                .navigationTitle("Users")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            showingAddUserView = true
-                        }) {
-                            Image(systemName: "plus")
+            ZStack{
+                background()
+                VStack{
+                    List(viewModel.users) { user in
+                        Text(user.name)
+                    }
+                    .padding(.top)
+                    .navigationTitle("Users")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                showingAddUserView = true
+                            }) {
+                                Image(systemName: "plus")
+                            }
                         }
                     }
-                }
-                .sheet(isPresented: $showingAddUserView){
-                    AddUserView(viewModel: viewModel)
+                    .sheet(isPresented: $showingAddUserView){
+                        AddUserView(viewModel: viewModel)
+                    }
                 }
             }
-            
-            
         }
     }
+    private func background() -> some View {
+            return Color.purple.ignoresSafeArea()
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {

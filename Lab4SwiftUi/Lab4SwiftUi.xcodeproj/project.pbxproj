@@ -63,7 +63,6 @@
 				908960232C0E453F0091376A /* Views */,
 				908960222C0E443D0091376A /* Models */,
 				908960122C0E3B070091376A /* Lab4SwiftUiApp.swift */,
-				908960242C0E49490091376A /* UserRepository.swift */,
 				908960162C0E3B090091376A /* Assets.xcassets */,
 				908960182C0E3B090091376A /* Preview Content */,
 			);
@@ -81,6 +80,7 @@
 		908960222C0E443D0091376A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				908960242C0E49490091376A /* UserRepository.swift */,
 				908960202C0E3FD60091376A /* User.swift */,
 			);
 			path = Models;
