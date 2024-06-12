@@ -15,7 +15,6 @@ protocol UserRepository {
 }
 
 class UserRepositoryImpl: UserRepository {
-    
     private let userDefaultsKey = "users"
     
     private var users: [User] {
