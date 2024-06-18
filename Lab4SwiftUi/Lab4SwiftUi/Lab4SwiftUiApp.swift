@@ -11,8 +11,7 @@ import SwiftUI
 struct Lab4SwiftUiApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-            
+            ContentView(viewModel: UserViewModel(userRepository: UserRepositoryImpl()))
         }
     }
 }

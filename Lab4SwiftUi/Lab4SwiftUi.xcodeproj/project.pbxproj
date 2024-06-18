@@ -18,6 +18,8 @@
 		9089602C2C1A20F50091376A /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089602B2C1A20F50091376A /* UserDetailsView.swift */; };
 		9089602E2C1A2B1C0091376A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089602D2C1A2B1C0091376A /* LocationManager.swift */; };
 		908960302C22008E0091376A /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089602F2C22008D0091376A /* EditUserView.swift */; };
+		908960332C223C830091376A /* TextModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908960322C223C830091376A /* TextModifiers.swift */; };
+		908960352C2242A50091376A /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908960342C2242A50091376A /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		9089602B2C1A20F50091376A /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
 		9089602D2C1A2B1C0091376A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9089602F2C22008D0091376A /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
+		908960322C223C830091376A /* TextModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifiers.swift; sourceTree = "<group>"; };
+		908960342C2242A50091376A /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,7 @@
 		908960112C0E3B070091376A /* Lab4SwiftUi */ = {
 			isa = PBXGroup;
 			children = (
+				908960312C223C560091376A /* Common */,
 				908960282C0F8A860091376A /* ViewModel */,
 				908960232C0E453F0091376A /* Views */,
 				908960222C0E443D0091376A /* Models */,
@@ -100,6 +105,7 @@
 				9089602F2C22008D0091376A /* EditUserView.swift */,
 				9089602B2C1A20F50091376A /* UserDetailsView.swift */,
 				908960142C0E3B070091376A /* ContentView.swift */,
+				908960342C2242A50091376A /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -110,6 +116,14 @@
 				908960262C0F88FA0091376A /* UserViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		908960312C223C560091376A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				908960322C223C830091376A /* TextModifiers.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +199,8 @@
 				908960302C22008E0091376A /* EditUserView.swift in Sources */,
 				9089602C2C1A20F50091376A /* UserDetailsView.swift in Sources */,
 				908960152C0E3B070091376A /* ContentView.swift in Sources */,
+				908960352C2242A50091376A /* MapView.swift in Sources */,
+				908960332C223C830091376A /* TextModifiers.swift in Sources */,
 				908960132C0E3B070091376A /* Lab4SwiftUiApp.swift in Sources */,
 				908960252C0E49490091376A /* UserRepository.swift in Sources */,
 				9089602E2C1A2B1C0091376A /* LocationManager.swift in Sources */,

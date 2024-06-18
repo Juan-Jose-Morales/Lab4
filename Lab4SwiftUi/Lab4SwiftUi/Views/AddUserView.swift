@@ -40,7 +40,6 @@ struct AddUserView: View {
                     }
                 }
                 .padding(.vertical)
-                .background(Color(UIColor.systemBackground))
             }
             .navigationTitle("Add User")
             .toolbar{
