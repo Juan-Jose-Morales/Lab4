@@ -17,6 +17,7 @@
 		9089602A2C0F8ABD0091376A /* AddUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 908960292C0F8ABD0091376A /* AddUserView.swift */; };
 		9089602C2C1A20F50091376A /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089602B2C1A20F50091376A /* UserDetailsView.swift */; };
 		9089602E2C1A2B1C0091376A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089602D2C1A2B1C0091376A /* LocationManager.swift */; };
+		908960302C22008E0091376A /* EditUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9089602F2C22008D0091376A /* EditUserView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		908960292C0F8ABD0091376A /* AddUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserView.swift; sourceTree = "<group>"; };
 		9089602B2C1A20F50091376A /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
 		9089602D2C1A2B1C0091376A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9089602F2C22008D0091376A /* EditUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				908960292C0F8ABD0091376A /* AddUserView.swift */,
+				9089602F2C22008D0091376A /* EditUserView.swift */,
 				9089602B2C1A20F50091376A /* UserDetailsView.swift */,
 				908960142C0E3B070091376A /* ContentView.swift */,
 			);
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				908960302C22008E0091376A /* EditUserView.swift in Sources */,
 				9089602C2C1A20F50091376A /* UserDetailsView.swift in Sources */,
 				908960152C0E3B070091376A /* ContentView.swift in Sources */,
 				908960132C0E3B070091376A /* Lab4SwiftUiApp.swift in Sources */,
