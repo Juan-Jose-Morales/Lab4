@@ -12,6 +12,7 @@ struct Lab4SwiftUiApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            
         }
     }
 }

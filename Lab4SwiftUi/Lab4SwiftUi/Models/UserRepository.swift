@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol UserRepository {
     func addUser(_ user: User)
@@ -17,40 +18,36 @@ protocol UserRepository {
 class UserRepositoryImpl: UserRepository {
     private let userDefaultsKey = "users"
     
-    private var users: [User] {
-            get {
-                if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
-                   let users = try? JSONDecoder().decode([User].self, from: data) {
-                    return users
-                }
-                return []
-            }
-            set {
-                if let data = try? JSONEncoder().encode(newValue) {
-                    UserDefaults.standard.set(data, forKey: userDefaultsKey)
-                }
-            }
+    func getAllUsers() -> [User] {
+        if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
+           let users = try? JSONDecoder().decode([User].self, from: data) {
+            return users
         }
+        return []
+    }
     
     func addUser(_ user: User) {
-        var allUsers = users
-        allUsers.append(user)
+        var users = getAllUsers()
         users.append(user)
+        savedUsers(users)
     }
     func deleteUser(_ user: User) {
-        var allUsers = users
-        allUsers.removeAll{ $0.id == user.id }
-        users = allUsers
+        var users = getAllUsers()
+        users.removeAll{ $0.id == user.id }
+        savedUsers(users)
     }
     func updateUser(_ user: User) {
-        var allUsers = users
-        if let index = allUsers.firstIndex(where: { $0.id == user.id }){
-            allUsers[index] = user
+        var users = getAllUsers()
+        if let index = users.firstIndex(where: { $0.id == user.id }){
+            users[index] = user
         }
-        users = allUsers
+        savedUsers(users)
     }
     
-    func getAllUsers() -> [User] {
-        return users
+    private func savedUsers(_ users: [User]){
+        if let data = try? JSONEncoder().encode(users){
+            UserDefaults.standard.set(data, forKey: userDefaultsKey)
+        }
     }
+    
 }
