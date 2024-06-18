@@ -9,42 +9,89 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var viewModel = UserViewModel(userRepository: UserRepositoryImpl())
+    @ObservedObject var viewModel: UserViewModel
+    @State private var searchText = ""
     @State private var showingAddUserView = false
+    @State private var showingEditUserView = false
+    @State private var selectedUser: User?
     
+    var filteredUsers: [User] {
+        if searchText.isEmpty {
+            return viewModel.users
+        } else{
+            return viewModel.users.filter{ $0.name.lowercased().contains(searchText.lowercased())}
+        }
+    }
     var body: some View {
         NavigationView{
             ZStack{
-                background()
                 VStack{
-                    List(viewModel.users) { user in
-                        Text(user.name)
-                    }
-                    .padding(.top)
-                    .navigationTitle("Users")
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            Button(action: {
-                                showingAddUserView = true
-                            }) {
-                                Image(systemName: "plus")
+                    List {
+                        ForEach(filteredUsers) { user in
+                            NavigationLink(destination: UserDetailsView(user: user)){
+                                Text(user.name)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive){
+                                    showDeleteAlert(for: user)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                                Button {
+                                    navigateToEditUser(user: user)
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
+                                }
                             }
                         }
                     }
-                    .sheet(isPresented: $showingAddUserView){
-                        AddUserView(viewModel: viewModel)
+                }
+                .padding(.top)
+                .navigationTitle("Users")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showingAddUserView = true
+                        }){
+                            Image(systemName: "plus")
+                        }
                     }
                 }
+                .sheet(isPresented: $showingAddUserView) {
+                    AddUserView(viewModel: viewModel)
+                }
+                .sheet(item: $selectedUser){ user in
+                    EditUserView(user: user, viewModel: viewModel)
+                }
+                .searchable(text: $searchText)
             }
         }
     }
+    
+    private func delete(at offsets: IndexSet){
+        offsets.map{ viewModel.users[$0]}.forEach(viewModel.deleteUser)
+    }
+    private func showDeleteAlert(for user: User) {
+        let alert = UIAlertController(title: "Delete User", message: "Are you sure you want to delete this user?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive){ _ in
+            viewModel.deleteUser(user)
+        })
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            scene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
+    private func navigateToEditUser(user: User){
+        selectedUser = user
+        showingEditUserView = true
+    }
     private func background() -> some View {
-            return Color.purple.ignoresSafeArea()
+            return Color.gray.ignoresSafeArea()
         }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: UserViewModel(userRepository: UserRepositoryImpl()))
     }
 }
