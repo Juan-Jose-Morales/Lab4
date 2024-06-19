@@ -25,6 +25,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             ZStack{
+                background()
                 VStack{
                     List {
                         ForEach(filteredUsers) { user in
@@ -46,7 +47,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding(.top)
+                .padding(.top,30)
                 .navigationTitle("Users")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -86,7 +87,7 @@ struct ContentView: View {
         showingEditUserView = true
     }
     private func background() -> some View {
-            return Color.gray.ignoresSafeArea()
+        return Color("Gray").ignoresSafeArea()
         }
 }
 

@@ -11,6 +11,7 @@ import MapKit
 struct MapView: UIViewRepresentable {
     
     let location: String
+    @Binding var isShowingMapView: Bool
     
     func makeUIView(context: Context) -> MKMapView {
         MKMapView(frame: .zero)
@@ -19,7 +20,7 @@ struct MapView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView,context: Context){
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(location) { placemarks, error in
-            guard let placemarks = placemarks?.first, let location = placemarks.location else{
+            guard let placemark = placemarks?.first, let location = placemark.location else{
                 if let error = error {
                     print("Geocoding failed with error: \(error.localizedDescription)")
                 }
@@ -28,7 +29,7 @@ struct MapView: UIViewRepresentable {
             let coordinate = location.coordinate
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-            //annotation.title = locationName(placemark: placemark)
+            annotation.title = locationName(placemark: placemark)
             uiView.addAnnotation(annotation)
             uiView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)), animated: true)
         }
@@ -48,6 +49,6 @@ struct MapView: UIViewRepresentable {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(location: "Madrid")
+        MapView(location: "Madrid", isShowingMapView: .constant(true))
     }
 }
