@@ -7,48 +7,66 @@
 
 import SwiftUI
 import CoreLocation
-import MapKit
 
 struct UserDetailsView: View {
-    
     var user: User
+    
+    @State private var isShowingMapView = false
+    
     var body: some View {
-        
-        VStack (alignment: .leading, spacing: 16) {
-            userInfoRow(title: "Name:", value: user.name)
-            userInfoRow(title: "Favorite Color: ", value: user.favoriteColor)
-            userInfoRow(title: "Birthday:", value: formmattedDate)
-            userInfoRow(title: "Favortite City:", value: user.favoriteCity)
-            userInfoRow(title: "Favorite Number: ", value: "\(user.favoriteNumber)")
-            if let location = user.currentLocation {
-                Text("Current Location: \(location.latitude), \(location.longitude)")
+        VStack(spacing: 30) {
+            VStack(alignment: .leading, spacing: 10) {
+                DetailRow(title: "Name:", value: user.name)
+                DetailRow(title: "Favorite Color:", value: user.favoriteColor)
+                DetailRow(title: "Birthdate:", value: formatDate(user.birthdate))
+                DetailRow(title: "Favorite City:", value: user.favoriteCity)
+                DetailRow(title: "Favorite Number:", value: "\(user.favoriteNumber)")
+                
+                Button(action: {
+                    isShowingMapView = true
+                }) {
+                    Text("Show Favorite City on Map")
+                        .buttonStyle(MainButtonStyle())
+                }
+                .sheet(isPresented: $isShowingMapView) {
+                    MapView(location: user.favoriteCity, isShowingMapView: $isShowingMapView)
+                        .edgesIgnoringSafeArea(.all)
+                        .overlay(
+                            Button(action: {
+                                isShowingMapView = false
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.black.opacity(0.7))
+                                    .clipShape(Circle())
+                                    .padding(.top, 30) // Ajuste para alinear la X
+                            }
+                            .padding(.trailing, 20) // Ajuste para alinear la X
+                            , alignment: .topTrailing
+                        )
+                }
+                .padding(.top, 20)
             }
-            // NavigationLink(destination: MapView(city: user.favoriteCity)){
-            //     Text("View on Map")
-            // }
-            // .padding(.top)
+            .padding(.horizontal)
+            .padding(.bottom, 20)
+            .background(Color.white)
+            .cornerRadius(10)
+            .padding()
+            
+            Spacer()
         }
-        Spacer()
         .navigationTitle("User Details")
-        
     }
     
-    private func userInfoRow (title: String, value: String) -> some View {
-        HStack{
-            Text(title)
-                .frame(width: 120, alignment: .leading)
-                .modifier(UserInfoLabel())
-            Text(value)
-                .modifier(UserInfoText())
-        }
-    }
-    
-    private var formmattedDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: user.birthdate)
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
     }
 }
+
 struct UserDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         let user = User(name: "Juan", favoriteColor: "Blue", birthdate: Date(), favoriteCity: "Miami", favoriteNumber: 18)
