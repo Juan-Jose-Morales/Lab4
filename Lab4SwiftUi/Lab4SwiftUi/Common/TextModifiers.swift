@@ -34,28 +34,6 @@ struct DetailRow: View {
     }
 }
 
-struct UserInfoLabel: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding()
-            .background(Color.white.opacity(0.8))
-            .foregroundColor(.black)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-    }
-}
-
-struct UserInfoText: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding()
-            .background(Color.white.opacity(0.8))
-            .foregroundColor(.black)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-    }
-}
-
 struct MainButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

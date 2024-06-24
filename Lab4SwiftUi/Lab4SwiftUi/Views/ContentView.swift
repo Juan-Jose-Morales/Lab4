@@ -15,47 +15,21 @@ struct ContentView: View {
     @State private var showingEditUserView = false
     @State private var selectedUser: User?
     
-    var filteredUsers: [User] {
-        if searchText.isEmpty {
-            return viewModel.users
-        } else{
-            return viewModel.users.filter{ $0.name.lowercased().contains(searchText.lowercased())}
-        }
-    }
     var body: some View {
         NavigationView{
             ZStack{
                 background()
-                VStack{
-                    List {
-                        ForEach(filteredUsers) { user in
-                            NavigationLink(destination: UserDetailsView(user: user)){
-                                Text(user.name)
-                            }
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button(role: .destructive){
-                                    showDeleteAlert(for: user)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                                Button {
-                                    navigateToEditUser(user: user)
-                                } label: {
-                                    Label("Edit", systemImage: "pencil")
-                                }
-                            }
-                        }
-                    }
+                VStack (spacing: 10){
+                    
+                    userList()
                 }
-                .padding(.top,30)
+                .padding(.top,10)
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("Users")
+                .padding(.bottom)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            showingAddUserView = true
-                        }){
-                            Image(systemName: "plus")
-                        }
+                        addUserButton
                     }
                 }
                 .sheet(isPresented: $showingAddUserView) {
@@ -69,7 +43,44 @@ struct ContentView: View {
         }
     }
     
-    private func delete(at offsets: IndexSet){
+    private var addUserButton: some View {
+        Button(action: {
+            showingAddUserView = true
+        }){
+            Image(systemName: "plus")
+        }
+    }
+    
+    var filteredUsers: [User] {
+        if searchText.isEmpty {
+            return viewModel.users
+        } else{
+            return viewModel.users.filter{ $0.name.lowercased().contains(searchText.lowercased())}
+        }
+    }
+    private func userList() -> some View {
+        List {
+            ForEach(filteredUsers) { user in
+                NavigationLink(destination: UserDetailsView(user: user)){
+                    Text(user.name)
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button(role: .destructive){
+                        showDeleteAlert(for: user)
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                    Button {
+                        navigateToEditUser(user: user)
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                }
+            }
+        }
+    }
+    
+    private func delete(at offsets: IndexSet) {
         offsets.map{ viewModel.users[$0]}.forEach(viewModel.deleteUser)
     }
     private func showDeleteAlert(for user: User) {
@@ -82,13 +93,14 @@ struct ContentView: View {
             scene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
-    private func navigateToEditUser(user: User){
+    
+    private func navigateToEditUser(user: User) {
         selectedUser = user
         showingEditUserView = true
     }
     private func background() -> some View {
         return Color("Gray").ignoresSafeArea()
-        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
