@@ -53,13 +53,13 @@ struct User: Identifiable, Codable {
     }
     
     func encode(to encoder: Encoder) throws {
-           var container = encoder.container(keyedBy: CodingKeys.self)
-           try container.encode(id, forKey: .id)
-           try container.encode(name, forKey: .name)
-           try container.encode(favoriteColor, forKey: .favoriteColor)
-           try container.encode(birthdate, forKey: .birthdate)
-           try container.encode(favoriteCity, forKey: .favoriteCity)
-           try container.encode(favoriteNumber, forKey: .favoriteNumber)
-           try container.encode(location, forKey: .currentLocation)
-       }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(favoriteColor, forKey: .favoriteColor)
+        try container.encode(birthdate, forKey: .birthdate)
+        try container.encode(favoriteCity, forKey: .favoriteCity)
+        try container.encode(favoriteNumber, forKey: .favoriteNumber)
+        try container.encode(location, forKey: .currentLocation)
+    }
 }
