@@ -19,13 +19,22 @@ struct EditUserView: View {
                 editUserForm()
             }
             .navigationTitle("Edit User")
-            .navigationBarItems(trailing: Button("Save") {
-                user.currentLocation = locationManager.currentLocation
-                viewModel.updateUser(user)
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(trailing: saveButton)
         }
     }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            saveChanges()
+        }
+    }
+    
+    private func saveChanges() {
+        user.currentLocation = locationManager.currentLocation
+        viewModel.updateUser(user)
+        presentationMode.wrappedValue.dismiss()
+    }
+    
     private func editUserForm() -> some View {
         Form {
             Section(header: Text("Personal information")){

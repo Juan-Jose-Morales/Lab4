@@ -29,6 +29,7 @@ struct UserDetailsView: View {
         }
         .navigationTitle("User Details")
     }
+    
     private var detailRows: some View {
         VStack(alignment: .leading, spacing: 10) {
             DetailRow(title: "Name:", value: user.name)
@@ -38,6 +39,7 @@ struct UserDetailsView: View {
             DetailRow(title: "Favorite Number:", value: "\(user.favoriteNumber)")
         }
     }
+    
     private var showMapViewButton: some View {
         Button(action: {
             isShowingMapView = true

@@ -79,6 +79,7 @@ struct ContentView: View {
             }
         }
     }
+    
     private func delete(at offsets: IndexSet) {
         offsets.map{ viewModel.users[$0]}.forEach(viewModel.deleteUser)
     }
@@ -92,6 +93,7 @@ struct ContentView: View {
             scene.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
+    
     private func navigateToEditUser(user: User) {
         selectedUser = user
         showingEditUserView = true
